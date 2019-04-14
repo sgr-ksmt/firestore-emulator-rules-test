@@ -1,16 +1,16 @@
 service cloud.firestore {
   function printRequest() {
-    return debug(request.resource) || true
+    return debug(request) || true;
   }
 
   function printResource() {
-    return debug(resource) || true
+    return debug(resource) || true;
   }
 
   match /databases/{database}/documents {
     match /users/{userId} {
       allow read: if printResource();
-      allow write: if printRequest() && debug(request.auth.uid) != null;
+      allow write: if printRequest() && request.auth.uid != null;
     }
     match /rooms/{roomId} {
       allow read;
